@@ -1,0 +1,40 @@
+{
+  "name": "final-project",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "concurrently": "^4.1.1",
+    "express": "^4.17.1",
+    "firebase": "^6.3.0",
+    "nodemon": "^1.19.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-html-parser": "^2.0.2",
+    "react-redux": "^7.1.0",
+    "react-scripts": "2.1.1",
+    "reactstrap": "^8.0.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run react\" \"npm run server\"",
+    "react": "react-scripts start",
+    "server": "nodemon server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "homepage": "https://github.ccs.neu.edu/cs7580su19-seattle/Student_Repo_Cong_Li/builds/assignment4/"
+}
