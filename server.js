@@ -125,7 +125,7 @@ const appendToMessages = (from, to, content) => {
   if (messages.length === 20) {
     messages.shift();
   }
-  messages.push({ timestamp: new Date().toLocaleString(), from, to, content });
+  messages.push({ timestamp: new Date(), from, to, content });
 }
 
 // Listen for client connections

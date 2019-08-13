@@ -27,7 +27,7 @@ const Message = (props) => {
     <div className={getToastClass(props.message.from)}>
       <Toast style={{ maxWidth: "100%" }}>
         <ToastHeader id="message-header">
-          {getMessageSenderName(props.message.from) + (props.message.to ? " to " + props.message.to : "") + "  " + props.message.timestamp}
+          {getMessageSenderName(props.message.from) + (props.message.to ? " to " + props.message.to : "") + "  " + props.message.timestamp.toLocaleString()}
         </ToastHeader>
         <ToastBody id="message-body">{props.message.content}</ToastBody>
       </Toast>
