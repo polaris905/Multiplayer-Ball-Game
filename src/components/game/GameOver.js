@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 import { confirmGameOverToServer } from "../../client";
 import { setPage } from "../../redux/actions";

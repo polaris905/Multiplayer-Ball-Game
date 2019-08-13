@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Table, Tooltip } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, Table, Tooltip } from "reactstrap";
 import { connect } from "react-redux";
 import Player from "./Player";
 import { TOOLTIP } from "../../constants";
@@ -17,6 +17,7 @@ class OnlineList extends Component {
     for (let player in this.props.onlineUsers) {
       list.push(
         <Player
+          key={player}
           player={player}
           win={this.props.onlineUsers[player].win}
           lose={this.props.onlineUsers[player].lose}
@@ -34,7 +35,7 @@ class OnlineList extends Component {
                 Select an available player to send a game request.
               </Tooltip>
               <tr>
-                <th>Username</th>
+                <th>Player</th>
                 <th className="win-lose">Win</th>
                 <th className="win-lose">Lose</th>
                 <th className="game-status">Status</th>

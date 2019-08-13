@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Toast, ToastBody, ToastHeader, Label } from "reactstrap";
+import React from "react";
+import { Toast, ToastBody, ToastHeader } from "reactstrap";
 
 const Message = (props) => {
   const getToastClass = (from) => {
@@ -25,11 +25,11 @@ const Message = (props) => {
 
   return (
     <div className={getToastClass(props.message.from)}>
-      <Toast style={{ maxWidth: '100%' }}>
-        <ToastHeader>
-          <Label>{getMessageSenderName(props.message.from) + (props.message.to ? ' to ' + props.message.to : '') + "  " + props.message.timestamp}</Label>
+      <Toast style={{ maxWidth: "100%" }}>
+        <ToastHeader id="message-header">
+          {getMessageSenderName(props.message.from) + (props.message.to ? " to " + props.message.to : "") + "  " + props.message.timestamp}
         </ToastHeader>
-        <ToastBody>{props.message.content}</ToastBody>
+        <ToastBody id="message-body">{props.message.content}</ToastBody>
       </Toast>
     </div>
   );

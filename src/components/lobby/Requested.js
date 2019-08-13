@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 import { acceptGameToServer, declineGameToServer } from "../../client";
 import { setGameRequested } from "../../redux/actions";
@@ -28,7 +28,7 @@ class Requested extends Component {
         <Modal centered isOpen={this.props.modalType === MODAL_TYPE.REQUESTED}>
           <ModalHeader>Game request from {this.props.requestedFrom}</ModalHeader>
           <ModalFooter>
-            <Button color="primary" onClick={this.acceptGame}>Accept</Button>{' '}
+            <Button color="primary" onClick={this.acceptGame}>Accept</Button>{" "}
             <Button color="danger" onClick={this.declineGame}>Decline</Button>
           </ModalFooter>
         </Modal>

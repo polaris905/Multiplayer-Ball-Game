@@ -1,6 +1,6 @@
 import { connectServer, requestGameToServer } from "../client";
 import { LOGIN_REQUESTED, SET_ONBOARDING, SET_LOGIN_RESPONSE, SET_TOOLTIP, UPDATE_MESSAGES, UPDATE_LOBBY_DATA, SET_PAGE, SET_GAME_REQUESTING, SET_GAME_REQUESTED, SET_START_GAME, SET_MOVEMENT, SET_GAME_OVER, SET_LOGOUT } from "./actionTypes";
-import { LOGIN_STATUS, MODAL_TYPE } from "../constants";
+import { MODAL_TYPE } from "../constants";
 
 export const setLoginRequested = () => ({
   type: LOGIN_REQUESTED
@@ -52,7 +52,7 @@ const setLoginResponse = (data) => ({
 export const setTooltip = (tooltipOrder) => ({
   type: SET_TOOLTIP,
   payload: tooltipOrder
-})
+});
 
 const updateMessages = (messages) => ({
   type: UPDATE_MESSAGES,
@@ -111,7 +111,7 @@ const setStartGame = (gameInfo) => ({
     leftPlayer: gameInfo.leftPlayer,
     rightPlayer: gameInfo.rightPlayer
   }
-})
+});
 
 const setMovement = (movement) => ({
   type: SET_MOVEMENT,
@@ -129,16 +129,4 @@ const setGameOver = (result) => ({
 
 export const setLogout = () => ({
   type: SET_LOGOUT
-})
-
-/**
- * Template calling client.js example
- *
- * export const actionName = () => {
- *    return dispatch => {
- *      myFunction(result => {
- *          dispatch(...an action that updates the store...)
- *      })
- *    }
- * }
- */
+});

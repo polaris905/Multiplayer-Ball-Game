@@ -21,8 +21,8 @@ export const PAGE = {
 }
 
 export const TOOLTIP = {
-  NONE: 0,
-  SEND_MESSAGE: 1,
-  REQUEST_GAME: 2,
-  MENU: 3
+  NONE: "NONE",
+  SEND_MESSAGE: "SEND_MESSAGE",
+  REQUEST_GAME: "REQUEST_GAME",
+  MENU: "MENU"
 }

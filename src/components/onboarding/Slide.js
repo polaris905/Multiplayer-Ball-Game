@@ -1,6 +1,6 @@
 import React from "react";
 
-const Slide = (props) =>
+const Slide = (props) => 
   <div className={"fullscreen slide-" + props.slideStatus} classID={"slide-" + props.slideId}>
     {props.children}
   </div>

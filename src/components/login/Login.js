@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Form, Button, FormGroup, Label, Input, Row, Col, Spinner, Alert } from 'reactstrap';
+import React, { Component } from "react";
+import { Container, Form, Button, FormGroup, Label, Input, Row, Col, Spinner, Alert } from "reactstrap";
 import { connect } from "react-redux";
 import { setLoginRequested, loginToServer } from "../../redux/actions";
 import { LOGIN_STATUS } from "../../constants";
@@ -44,6 +44,8 @@ class Login extends Component {
         return <Alert color="danger">Error connecting to database!</Alert>
       case LOGIN_STATUS.REPEATED:
         return <Alert color="danger">The username has already login on another browser! Please close it and then try again.</Alert>
+      default:
+        return "";
     }
   }
 
@@ -51,7 +53,7 @@ class Login extends Component {
     if (this.props.status === LOGIN_STATUS.REQUESTED) {
       return (
         <div className="spinner-wrapper">
-          <Spinner color="info" style={{ width: '8rem', height: '8rem' }} />
+          <Spinner color="info" style={{ width: "8rem", height: "8rem" }} />
         </div>
       );
     } else {

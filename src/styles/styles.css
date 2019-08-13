@@ -1,6 +1,28 @@
 body {
-  background: #eee;
+  background: #ccc;
   font-family: "Open Sans", sans-serif !important;
+}
+
+.text-slanted {
+  font-family: "Courgette", cursive;
+}
+
+.align-center {
+  display: inline-flex;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.align-right {
+  position: absolute;
+  display: inline;
+  right: 20px;
+}
+
+.App {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .App-header {
@@ -19,25 +41,6 @@ body {
 .login-form { 
   max-width: 600px;
   margin: auto;
-}
-
-.text-slanted {
-  font-family: "Courgette", cursive;
-}
-
-#login-button {
-  background-color: white;
-  color: black;
-}
-
-#login-button:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-#action-menu {
-  background-color: white;
-  color: black;
 }
 
 .fullscreen {
@@ -64,18 +67,6 @@ body {
 
 .slide-active {
   display: inline;
-}
-
-.align-center {
-  display: inline-flex;
-  margin-left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.align-right {
-  position: absolute;
-  display: inline;
-  right: 20px;
 }
 
 .control-btn {
@@ -105,27 +96,17 @@ body {
   transform: translate(-50%, -20%);
 }
 
-.indicator-inactive {
-  background-color:white;
-}
-
 .indicator-active {
   background-color:black;
 }
 
-#online-player, #chat-room, #game-title {
-  color: white;
-  background-color: #007bff;
-  border: none;
-  opacity: 1;
-}
-
-.lobby-frame {
-  margin: auto;
-  margin-top: 30px;
+.indicator-inactive {
+  background-color:white;
 }
 
 .online-list-frame {
+  height: 100%;
+  width: 100%;
   padding: 8px;
   border: black solid 2px;
   border-radius: 5px;
@@ -133,11 +114,13 @@ body {
 }
 
 .online-list-content {
-  height: 495px;
+  position: relative;
+  height: 90%;
+  width: 100%;
   overflow-y: scroll;
   margin-bottom: 5px;
   text-align: left;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 @media screen and (max-width: 1024px) and (min-width: 800px) {
@@ -156,6 +139,8 @@ body {
 }
 
 .chat-frame {
+  height: 100%;
+  width: 100%;
   padding: 8px;
   border: black solid 2px;
   border-radius: 5px;
@@ -163,11 +148,12 @@ body {
 }
 
 .chat-content {
-  height: 452px;
+  height: 80%;
+  width: 100%;
   overflow-y: scroll;
   margin-bottom: 10px;
   text-align: left;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .game-frame {
@@ -176,15 +162,6 @@ body {
   width: 638px;
   margin: auto;
   margin-top: 30px;
-  /* border: black solid 1px; */
-  /* position: relative; */
-  /* background: #ccc; */
-  /* border-radius: 5px; */
-}
-
-#instruction {
-  margin-top: 10px;
-  width: 638px;
 }
 
 .game-board {
@@ -194,7 +171,7 @@ body {
   margin-top: 10px;
   border: black solid 2px;
   position: relative;
-  background: white;
+  background: rgb(206, 255, 193);
   border-radius: 5px;
 }
 
@@ -210,7 +187,7 @@ body {
   position: absolute;
   height: 120px;
   width: 7px;
-  background: #28a745;
+  background: #f1721c;
   border-radius: 4px;
 }
 
@@ -219,15 +196,56 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: inherit;
   background-color: white;
 }
 
-#message-sender {
-  width: 200%;
+
+#login-button {
+  background-color: white;
+  color: black;
 }
 
-#message-timestamp {
-  text-align: right;
-  width: 30%;
+#login-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+#action-menu {
+  display: inline;
+  background-color: white;
+  color: black;
+}
+
+#lobby-frame {
+  margin: auto;
+  margin-top: 4%;
+  position: relative;
+  height: 73%;
+  width: 100%;
+}
+
+#lobby-row {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#online-player, #chat-room, #game-title {
+  color: white;
+  background-color: #007bff;
+  border: none;
+  opacity: 1;
+}
+
+#message-header, #message-body {
+  padding: 6px 8px;
+}
+
+#message-input, #message-send {
+  border-radius: 4px;
+}
+
+#instruction {
+  margin-top: 10px;
+  width: 638px;
 }

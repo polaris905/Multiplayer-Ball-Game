@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Board from "./Board";
 import { connect } from "react-redux";
-import { Label, Button } from 'reactstrap';
-import { sendMovementToServer, sendStartGameToServer } from '../../client';
-import GameOver from './GameOver';
+import { Label, Row, Col, Button } from "reactstrap";
+import { sendMovementToServer, sendStartGameToServer } from "../../client";
+import GameOver from "./GameOver";
 
 const mapStateToProps = state => {
   const leftPlayer = state.game.leftPlayer;
@@ -22,9 +22,9 @@ class Game extends Component {
   }
 
   handleKeyPress = (e) => {
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
       sendMovementToServer(e.key);
-    } else if (e.key === 'Enter') {
+    } else if (e.key === "Enter") {
       sendStartGameToServer(e.key);
     }
   };
@@ -32,7 +32,13 @@ class Game extends Component {
   render() {
     return (
       <div className="game-frame" ref={div => { this.gameBody = div; }} tabIndex="0" onKeyDown={this.handleKeyPress}>
-        <Button id="game-title" blodisabled block>{this.props.leftPlayer + " VS " + this.props.rightPlayer}</Button>
+        <Button id="game-title" disabled block>
+          <Row >
+            <Col>{this.props.leftPlayer}</Col>
+            <Col>VS</Col>
+            <Col>{this.props.rightPlayer}</Col>
+          </Row>
+        </Button>
         <Board left={this.props.left} right={this.props.right} x={this.props.x} y={this.props.y} />
         <Label id="instruction">Instruction: Use up/down keys to control your paddle. Press enter to start.</Label>
         <GameOver />

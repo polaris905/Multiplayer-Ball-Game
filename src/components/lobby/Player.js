@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Label } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, Label } from "reactstrap";
 import { connect } from "react-redux";
 import { requestGame, setGameRequesting, setTooltip } from "../../redux/actions";
 import { MODAL_TYPE, TOOLTIP } from "../../constants";
@@ -22,12 +22,20 @@ class Player extends Component {
   render() {
     return (
       <tr>
-        <td><Label>{this.props.player === this.props.username ? this.props.username + " (Me)" : this.props.player}</Label></td>
-        <td className="win-lose"><Label>{this.props.win}</Label></td>
-        <td className="win-lose"><Label>{this.props.lose}</Label></td>
-        <td className="game-status"><Label>{this.props.status}</Label></td>
         <td>
-          {this.props.status === 'available' && this.props.player !== this.props.username ?
+          <Label>{this.props.player === this.props.username ? this.props.username + " (Me)" : this.props.player}</Label>
+        </td>
+        <td className="win-lose">
+          <Label>{this.props.win}</Label>
+        </td>
+        <td className="win-lose">
+          <Label>{this.props.lose}</Label>
+        </td>
+        <td className="game-status">
+          <Label>{this.props.status}</Label>
+        </td>
+        <td>
+          {this.props.status === "available" && this.props.player !== this.props.username ?
             <Button color="success" size="sm" onClick={this.requestGame}>
               Play
             </Button> : ""

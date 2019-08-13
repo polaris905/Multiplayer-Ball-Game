@@ -7,7 +7,7 @@ import { setOnboardingToServer } from "../../client";
 import { setOnboarding, setTooltip } from "../../redux/actions";
 import { TOOLTIP } from "../../constants"
 
-const TOTAL_SLIDES = 2;
+const TOTAL_SLIDES = 3;
 
 const mapStateToProps = state => {
   const userInfo = state.lobby.userInfo;
@@ -34,7 +34,7 @@ class OnboardingSlides extends Component {
     }
   }
 
-  pickSlide = (event, id) => {
+  pickSlide = (id) => {
     this.setSlide(id);
   }
 
@@ -64,33 +64,28 @@ class OnboardingSlides extends Component {
     return (
       <div className="fullscreen slides-bg">
         <Slide slideStatus={this.setSlideState(1)} slideId={1}>
-          {/* <Container> */}
           <Row>
-            <div className="col-10 col-md-6 col-lg-8 my-3 card align-center">
-              <h1 className="my-4 text-slanted">Search your recipes...</h1>
-              <img
-                src="https://static.food2fork.com/peanutbutteroatmealsandwichcookies9764.jpg"
-                alt="recipe"
-              />
-              <h5 className="my-3 text-slanted">Here, you can search and browse the most popular recipes.</h5>
+            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+              <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide1.png" alt="slide1" />
+              <h5 className="my-3 text-slanted align-center">Checking who is online and play with her/him.</h5>
             </div>
           </Row>
-          {/* </Container> */}
         </Slide>
         <Slide slideStatus={this.setSlideState(2)} slideId={2}>
-          {/* <Container> */}
           <Row>
-            <div className="col-10 col-md-6 col-lg-8 my-3 card align-center">
-              <h1 className="my-4 text-slanted">Save your favourites...</h1>
-
-              <img
-                src="https://static.food2fork.com/chocolatepeanutbutterfuncake6460913.jpg"
-                alt="recipe"
-              />
-              <h5 className="my-3 text-slanted">Here, you can also save your favourite recipes</h5>
+            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+              <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide2.png" alt="slide2" />
+              <h5 className="my-3 text-slanted align-center">Enjoy chating with others to make new friends.</h5>
             </div>
           </Row>
-          {/* </Container> */}
+        </Slide>
+        <Slide slideStatus={this.setSlideState(3)} slideId={3}>
+          <Row>
+            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+              <img className="align-center" style={{ width: "100%", marginTop: "3%", maxWidth: "60%", border: 0 }} src="slide3.png" alt="slide3" />
+              <h5 className="my-3 text-slanted align-center">Moving your paddle to hit the ball.</h5>
+            </div>
+          </Row>
         </Slide>
         <div className="slides-controls">
           <Row>

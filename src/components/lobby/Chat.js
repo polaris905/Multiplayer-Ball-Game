@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Input, Tooltip, Label } from "reactstrap";
+import React, { Component } from "react";
+import { Button, Input, Tooltip, InputGroup, InputGroupAddon } from "reactstrap";
 import { connect } from "react-redux";
 import { sendMessageToServer } from "../../client";
 import { setTooltip } from "../../redux/actions";
@@ -31,22 +31,30 @@ class Chat extends Component {
     }
   }
 
-  handleInputChange = event => this.setState({ input: event.target.value });
+  handleInputChange = (event) => {
+    this.setState({ input: event.target.value });
+  }
+
+  handleSendMessage = () => {
+    if (this.state.tooltipOpen) {
+      this.setState({
+        tooltipOpen: false
+      });
+      this.props.setTooltip(TOOLTIP.REQUEST_GAME);
+    }
+    sendMessageToServer(this.state.input);
+    this.setState({ input: "" });
+  }
 
   handleKeyPress = event => {
-    if (event.key === 'Enter' && this.state.input.length > 0) {
-      if (this.state.tooltipOpen) {
-        this.setState({
-          tooltipOpen: false
-        });
-        this.props.setTooltip(TOOLTIP.REQUEST_GAME);
-      }
-      sendMessageToServer(this.state.input);
-      this.setState({ input: "" });
+    if (event.key === "Enter" && this.state.input.length > 0) {
+      this.handleSendMessage();
     }
   };
 
-  scrollToBottom = () => this.endLine.scrollIntoView({ behavior: "smooth" });
+  scrollToBottom = () => {
+    this.endLine.scrollIntoView({ behavior: "smooth" });
+  }
 
   componentDidUpdate() {
     this.scrollToBottom();
@@ -59,19 +67,23 @@ class Chat extends Component {
         <div className="chat-content">
           {this.props.messages.map(message => {
             return (
-              <Message message={message} username={this.props.username} />
+              <Message key={message.from + message.timestamp} message={message} username={this.props.username} />
             );
           })}
           <div
             ref={(endLine) => { this.endLine = endLine; }} />
         </div>
-        <Input
-          id="message-input"
-          type="text"
-          value={this.state.input}
-          onChange={this.handleInputChange}
-          placeholder="Type here to send a message..."
-          onKeyPress={this.handleKeyPress} />
+        <InputGroup>
+          <Input id="message-input"
+            type="text"
+            value={this.state.input}
+            onChange={this.handleInputChange}
+            placeholder="Type here to send a message..."
+            onKeyPress={this.handleKeyPress} />
+          <InputGroupAddon addonType="prepend">
+            <Button id="message-send" color="success" onClick={this.handleSendMessage}>SEND</Button>
+          </InputGroupAddon>
+        </InputGroup>
         <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="message-input">
           Send a message.
         </Tooltip>

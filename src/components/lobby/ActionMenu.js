@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Tooltip } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Tooltip } from "reactstrap";
 import { setOnboardingToServer, setLogoutToServer } from "../../client";
 import { setOnboarding, setLogout, setTooltip } from "../../redux/actions";
 import { TOOLTIP } from "../../constants";
@@ -39,7 +39,7 @@ class ActionMenu extends Component {
 
   render() {
     return (
-      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <ButtonDropdown id="menu" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret id="action-menu">
           Menu
         </DropdownToggle>

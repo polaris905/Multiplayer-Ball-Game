@@ -1,10 +1,12 @@
 /** SERVER CONFIGURATION */
 const express = require("express");
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 const path = require("path");
-const Game = require('./Game');
+const Game = require("./Game");
+
+/** Database configuration */
 const firebase = require("firebase");
 require("firebase/firestore");
 const firebaseConfig = {
@@ -15,28 +17,27 @@ const firebaseConfig = {
   storageBucket: "cs7580-final.appspot.com",
   messagingSenderId: "821006790639",
   appId: "1:821006790639:web:acbb29f2f291764e"
-};
-
+}
 firebase.initializeApp(firebaseConfig);
 const database = firebase.firestore();
 
 // Choose a port, default is 4002 (could be almost anything)
 const PORT = process.env.PORT || 4002;
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, "build")));
 
 // When on Heroku, serve the UI from the build folder
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'build')));
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'build/index.html'));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+  app.get("*", (req, res) => {
+    res.sendfile(path.join(__dirname = "build/index.html"));
   })
 }
 
 // When on local host, server from the public folder. 
 // Rule will not be written if production conditional has executed
-app.get('*', (req, res) => {
-  app.sendFile(path.join(__dirname + 'public/index.html'));
+app.get("*", (req, res) => {
+  app.sendFile(path.join(__dirname + "public/index.html"));
 });
 
 const userMap = {};
@@ -51,8 +52,8 @@ function GameObj(game, leftPlayer, rightPlayer) {
   this.rightPlayer = rightPlayer;
   this.id = leftPlayer + rightPlayer + Date.now();
   this.interval = null;
-  io.to(userMap[leftPlayer].sockeId).emit('start_game', { leftPlayer, rightPlayer });
-  io.to(userMap[rightPlayer].sockeId).emit('start_game', { leftPlayer, rightPlayer });
+  io.to(userMap[leftPlayer].sockeId).emit("start_game", { leftPlayer, rightPlayer });
+  io.to(userMap[rightPlayer].sockeId).emit("start_game", { leftPlayer, rightPlayer });
 }
 
 const updateScores = (winner, loser) => {
@@ -72,12 +73,12 @@ const updateScores = (winner, loser) => {
   }).catch(function (error) {
     console.error("Error updating scores: ", error);
   });
-  appendToMessages('GAME', '', "Congratulations: " + winner + ' beated ' + loser + '!');
-  io.sockets.emit('lobby', { onlineUsers, messages });
+  appendToMessages("GAME", "", "Congratulations: " + winner + " beated " + loser + "!");
+  io.sockets.emit("lobby", { onlineUsers, messages });
 };
 
 const makeGame = (leftPlayer, rightPlayer) => {
-  let game = new Game(who => {
+  let game = new Game(player => {
     let gameObj = gameMap[gameIdMap[leftPlayer]];
     clearInterval(gameObj.interval);
     delete gameIdMap[leftPlayer];
@@ -85,7 +86,7 @@ const makeGame = (leftPlayer, rightPlayer) => {
     delete gameMap[gameObj.id];
     let winner;
     let loser;
-    if (who === 'left') {
+    if (player === "left") {
       winner = rightPlayer;
       loser = leftPlayer;
     } else {
@@ -93,12 +94,12 @@ const makeGame = (leftPlayer, rightPlayer) => {
       loser = rightPlayer;
     }
     if (userMap[leftPlayer]) {
-      onlineUsers[leftPlayer].status = 'pending';
-      io.to(userMap[leftPlayer].sockeId).emit('game_over', { winner, loser });
+      onlineUsers[leftPlayer].status = "pending";
+      io.to(userMap[leftPlayer].sockeId).emit("game_over", { winner, loser });
     }
     if (userMap[rightPlayer]) {
-      onlineUsers[rightPlayer].status = 'pending';
-      io.to(userMap[rightPlayer].sockeId).emit('game_over', { winner, loser });
+      onlineUsers[rightPlayer].status = "pending";
+      io.to(userMap[rightPlayer].sockeId).emit("game_over", { winner, loser });
     }
     updateScores(winner, loser);
   });
@@ -106,17 +107,17 @@ const makeGame = (leftPlayer, rightPlayer) => {
   gameIdMap[leftPlayer] = gameObj.id;
   gameIdMap[rightPlayer] = gameObj.id;
   gameMap[gameObj.id] = gameObj;
-  onlineUsers[leftPlayer].status = 'playing';
-  onlineUsers[rightPlayer].status = 'playing';
-  io.sockets.emit('lobby', { onlineUsers, messages });
+  onlineUsers[leftPlayer].status = "playing";
+  onlineUsers[rightPlayer].status = "playing";
+  io.sockets.emit("lobby", { onlineUsers, messages });
 };
 
 const startGame = gameObj => {
   gameObj.game.start();
   gameObj.interval = setInterval(() => {
     let state = gameObj.game.getState();
-    io.to(userMap[gameObj.leftPlayer].sockeId).emit('update_game', state);
-    io.to(userMap[gameObj.rightPlayer].sockeId).emit('update_game', state);
+    io.to(userMap[gameObj.leftPlayer].sockeId).emit("update_game", state);
+    io.to(userMap[gameObj.rightPlayer].sockeId).emit("update_game", state);
   }, 10);
 };
 
@@ -131,11 +132,11 @@ const appendToMessages = (from, to, content) => {
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 io.on("connection", socket => {
-  let username = '';
+  let username = "";
 
-  socket.on('login', loginInfo => {
+  socket.on("login", loginInfo => {
     if (userMap[loginInfo.username]) {
-      socket.emit('login', { loginStatus: 'REPEATED', userInfo: null, page: "LOGIN" });
+      socket.emit("login", { loginStatus: "REPEATED", userInfo: null, page: "LOGIN" });
     } else {
       database.collection("users").where("username", "==", loginInfo.username).where("password", "==", loginInfo.password)
         .get()
@@ -153,87 +154,89 @@ io.on("connection", socket => {
             username = userInfo.username;
             userMap[username] = { sockeId: socket.id };
             if (userInfo.onboardingComplete) {
-              onlineUsers[username] = { id: userInfo.id, username: username, status: 'available', win: userInfo.win, lose: userInfo.lose };
+              onlineUsers[username] = { id: userInfo.id, username: username, status: "available", win: userInfo.win, lose: userInfo.lose };
             } else {
-              onlineUsers[username] = { id: userInfo.id, username: username, status: 'pending', win: userInfo.win, lose: userInfo.lose };
+              onlineUsers[username] = { id: userInfo.id, username: username, status: "pending", win: userInfo.win, lose: userInfo.lose };
             }
-            appendToMessages('SYSTEM', '', 'Welcome ' + username + '!');
-            socket.emit('login', { loginStatus: 'SUCCESSFUL', userInfo, page: "LOBBY" });
-            io.sockets.emit('lobby', { onlineUsers, messages });
+            appendToMessages("SYSTEM", "", "Welcome " + username + "!");
+            socket.emit("login", { loginStatus: "SUCCESSFUL", userInfo, page: "LOBBY" });
+            io.sockets.emit("lobby", { onlineUsers, messages });
           } else {
-            socket.emit('login', { loginStatus: 'INVALID', userInfo: null, page: "LOGIN" });
+            socket.emit("login", { loginStatus: "INVALID", userInfo: null, page: "LOGIN" });
           }
         })
         .catch(error => {
-          socket.emit('login', { loginStatus: 'FAILED', userInfo: null, page: "LOGIN" });
+          socket.emit("login", { loginStatus: "FAILED", userInfo: null, page: "LOGIN" });
         });
     }
   });
 
-  socket.on('set_onboarding', complete => {
-    if (!complete) {
-      onlineUsers[username].status = 'pending';
-    } else {
-      database.collection("users").doc(onlineUsers[username].id).update({
-        onboardingComplete: complete
-      }).then(function () {
-        console.log("Onboarding status successfully updated!");
-      }).catch(function (error) {
-        console.error("Error updating onboarding status: ", error);
-      });
-      onlineUsers[username].status = 'available';
-    }
-    io.sockets.emit('lobby', { onlineUsers, messages });
-  });
-
-  socket.on('request_game', name => {
+  socket.on("set_onboarding", complete => {
     if (username) {
-      onlineUsers[username].status = 'pending';
-      onlineUsers[name].status = 'pending';
-      io.to(userMap[name].sockeId).emit('request_game', username);
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      if (!complete) {
+        onlineUsers[username].status = "pending";
+      } else {
+        database.collection("users").doc(onlineUsers[username].id).update({
+          onboardingComplete: complete
+        }).then(function () {
+          console.log("Onboarding status successfully updated!");
+        }).catch(function (error) {
+          console.error("Error updating onboarding status: ", error);
+        });
+        onlineUsers[username].status = "available";
+      }
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   });
 
-  socket.on('close_request', name => {
+  socket.on("request_game", name => {
     if (username) {
-      onlineUsers[username].status = 'available';
-      onlineUsers[name].status = 'available';
-      io.to(userMap[name].sockeId).emit('close_request', username);
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      onlineUsers[username].status = "pending";
+      onlineUsers[name].status = "pending";
+      io.to(userMap[name].sockeId).emit("request_game", username);
+      io.sockets.emit("lobby", { onlineUsers, messages });
+    }
+  });
+
+  socket.on("close_request", name => {
+    if (username) {
+      onlineUsers[username].status = "available";
+      onlineUsers[name].status = "available";
+      io.to(userMap[name].sockeId).emit("close_request", username);
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   })
 
-  socket.on('chat', text => {
+  socket.on("chat", text => {
     if (username) {
-      appendToMessages(username, '', text);
-      io.sockets.emit('chat', messages);
+      appendToMessages(username, "", text);
+      io.sockets.emit("chat", messages);
     }
   });
 
-  socket.on('accept', name => {
+  socket.on("accept", name => {
     if (username) {
       if (onlineUsers[name]) {
         makeGame(username, name);
       } else {
-        onlineUsers[username].status = 'available';
-        io.sockets.emit('lobby', { onlineUsers, messages });
+        onlineUsers[username].status = "available";
+        io.sockets.emit("lobby", { onlineUsers, messages });
       }
     }
   });
 
-  socket.on('decline', name => {
+  socket.on("decline", name => {
     if (username) {
-      onlineUsers[username].status = 'available';
+      onlineUsers[username].status = "available";
       if (onlineUsers[name]) {
-        onlineUsers[name].status = 'available';
-        io.to(userMap[name].sockeId).emit('request_declined', username);
+        onlineUsers[name].status = "available";
+        io.to(userMap[name].sockeId).emit("request_declined", username);
       }
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   });
 
-  socket.on('move_paddle', string => {
+  socket.on("move_paddle", string => {
     if (username) {
       let gameObj = gameMap[gameIdMap[username]];
       if (gameObj) {
@@ -242,13 +245,13 @@ io.on("connection", socket => {
         } else {
           gameObj.game.moveRightPaddle(string);
         }
-        io.to(userMap[gameObj.leftPlayer].sockeId).emit('update_game', gameObj.game.getState());
-        io.to(userMap[gameObj.rightPlayer].sockeId).emit('update_game', gameObj.game.getState());
+        io.to(userMap[gameObj.leftPlayer].sockeId).emit("update_game", gameObj.game.getState());
+        io.to(userMap[gameObj.rightPlayer].sockeId).emit("update_game", gameObj.game.getState());
       }
     }
   });
 
-  socket.on('start_game', () => {
+  socket.on("start_game", () => {
     if (username) {
       let gameObj = gameMap[gameIdMap[username]];
       if (gameObj && !gameObj.interval)
@@ -256,23 +259,23 @@ io.on("connection", socket => {
     }
   });
 
-  socket.on('game_over', () => {
+  socket.on("game_over", () => {
     if (username) {
-      onlineUsers[username].status = 'available';
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      onlineUsers[username].status = "available";
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   })
 
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     if (username) {
-      appendToMessages('SYSTEM', '', username + ' left.');
+      appendToMessages("SYSTEM", "", username + " left.");
       delete userMap[username];
       if (username in gameIdMap) {
         let gameObj = gameMap[gameIdMap[username]];
         if (gameObj.leftPlayer === username) {
-          gameObj.game.stop('left');
+          gameObj.game.stop("left");
         } else {
-          gameObj.game.stop('right');
+          gameObj.game.stop("right");
         }
         if (gameObj.interval) {
           clearInterval(gameObj.interval);
@@ -282,31 +285,16 @@ io.on("connection", socket => {
         delete gameMap[gameObj.id];
       }
       delete onlineUsers[username];
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   });
 
-  socket.on('logout', () => {
+  socket.on("logout", () => {
     if (username) {
-      appendToMessages('SYSTEM', '', username + ' left.');
+      appendToMessages("SYSTEM", "", username + " left.");
       delete userMap[username];
       delete onlineUsers[username];
-      io.sockets.emit('lobby', { onlineUsers, messages });
+      io.sockets.emit("lobby", { onlineUsers, messages });
     }
   });
-
-  // Send messages to and receive messages from the client in here
-
-  /**
-   * // Send to this client only
-   * client.emit("message name", content)
-   * 
-   * // Send to all connected clients
-   * io.sockets.emit("message name", content)
-   * 
-   * // Listen for a message from a client
-   * client.on("message name", (dataFromClient) => { 
-   *  //do something
-   * })
-   */
-})
+});

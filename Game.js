@@ -16,12 +16,12 @@ function Game(callback) {
     return { left, right, x, y };
   };
 
-  this.stop = who => {
+  this.stop = player => {
     for (let i in state.intervals) {
       clearInterval(state.intervals[i]);
     }
     state.intervals = [];
-    callback(who);
+    callback(player);
   };
 
   const paddleIncrement = () => {
@@ -31,7 +31,7 @@ function Game(callback) {
   };
 
   this.moveRightPaddle = string => {
-    if (string === 'ArrowUp')
+    if (string === "ArrowUp")
       state.right = state.right + paddleIncrement();
     else if (state.right > 0)
       state.right = state.right - paddleIncrement();
@@ -39,7 +39,7 @@ function Game(callback) {
   };
 
   this.moveLeftPaddle = string => {
-    if (string === 'ArrowUp')
+    if (string === "ArrowUp")
       state.left = state.left + paddleIncrement();
     else if (state.left > 0)
       state.left = state.left - paddleIncrement();
@@ -66,7 +66,7 @@ function Game(callback) {
     if (state.x < 0) {
       if (state.y < state.left - 13 || state.y > state.left + 114) {
         if (state.x < -7) {
-          this.stop('left');
+          this.stop("left");
         }
       } else {
         let spot = state.y - state.left;
@@ -77,7 +77,7 @@ function Game(callback) {
     if (state.x > 600) {
       if (state.y < state.right - 13 || state.y > state.right + 114) {
         if (state.x > 607) {
-          this.stop('right');
+          this.stop("right");
         }
       } else {
         let spot = state.y - state.right;
