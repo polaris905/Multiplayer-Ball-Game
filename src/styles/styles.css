@@ -127,13 +127,13 @@ body {
   margin-top: 12px;
 }
 
-@media screen and (max-width: 1024px) and (min-width: 768px) {
+@media screen and (max-width: 1023px) and (min-width: 768px) {
   .win-lose {
     display:none;
   }
 }
 
-@media screen and (max-width: 768px) and (min-width: 0px) {
+@media screen and (max-width: 767px) and (min-width: 0px) {
   .win-lose {
     display:none;
   }
