@@ -75,7 +75,7 @@ class OnboardingSlides extends Component {
           <Row>
             <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
               <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide2.png" alt="slide2" />
-              <h5 className="my-3 text-slanted align-center">Enjoy chating with others to make new friends.</h5>
+              <h5 className="my-3 text-slanted align-center">Enjoy chating with others to make friends.</h5>
             </div>
           </Row>
         </Slide>
