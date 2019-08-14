@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Link
+Please click [Project Spec](https://docs.google.com/document/d/1-gSpcZdyvQxF2Ik7khtCQt9KYhRACX7S1tnyew4Zqag/edit?usp=sharing) to see more detail about the project.    
+Please click [Heroku App URL](http://cs7580-final.herokuapp.com/) to have a try.  
 
 ## Available Scripts
 
