@@ -66,7 +66,7 @@ class OnboardingSlides extends Component {
         <Slide slideStatus={this.setSlideState(1)} slideId={1}>
           <Row>
             <div className="col-md-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
-              <h5 className="my-3 text-slanted align-center">Play with online players.</h5>
+              <h3 className="my-3 text-slanted align-center">Play with online players.</h3>
               <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide1.png" alt="slide1" />
             </div>
           </Row>
@@ -74,7 +74,7 @@ class OnboardingSlides extends Component {
         <Slide slideStatus={this.setSlideState(2)} slideId={2}>
           <Row>
             <div className="col-md-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
-              <h5 className="my-3 text-slanted align-center">Chat with friends.</h5>
+              <h3 className="my-3 text-slanted align-center">Chat with friends.</h3>
               <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide2.png" alt="slide2" />
             </div>
           </Row>
@@ -82,7 +82,7 @@ class OnboardingSlides extends Component {
         <Slide slideStatus={this.setSlideState(3)} slideId={3}>
           <Row>
             <div className="col-md-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
-              <h5 className="my-3 text-slanted align-center">Move paddle to play.</h5>
+              <h3 className="my-3 text-slanted align-center">Move paddle to play.</h3>
               <img className="align-center" style={{ width: "100%", marginTop: "3%", maxWidth: "60%", border: 0 }} src="slide3.png" alt="slide3" />
             </div>
           </Row>
