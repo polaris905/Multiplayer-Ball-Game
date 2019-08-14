@@ -122,7 +122,7 @@ const startGame = gameObj => {
 };
 
 const appendToMessages = (from, to, content) => {
-  if (messages.length === 20) {
+  if (messages.length === 100) {
     messages.shift();
   }
   messages.push({ timestamp: new Date(), from, to, content });

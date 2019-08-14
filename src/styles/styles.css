@@ -127,13 +127,13 @@ body {
   margin-top: 12px;
 }
 
-@media screen and (max-width: 1024px) and (min-width: 800px) {
+@media screen and (max-width: 1024px) and (min-width: 768px) {
   .win-lose {
     display:none;
   }
 }
 
-@media screen and (max-width: 800px) and (min-width: 0px) {
+@media screen and (max-width: 768px) and (min-width: 0px) {
   .win-lose {
     display:none;
   }
@@ -152,7 +152,7 @@ body {
 }
 
 .chat-content {
-  height: 80%;
+  height: 79%;
   width: 100%;
   overflow-y: scroll;
   margin-bottom: 10px;
