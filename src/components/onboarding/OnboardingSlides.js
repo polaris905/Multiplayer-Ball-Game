@@ -65,7 +65,7 @@ class OnboardingSlides extends Component {
       <div className="fullscreen slides-bg">
         <Slide slideStatus={this.setSlideState(1)} slideId={1}>
           <Row>
-            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+            <div className="col-md-6 col-lg-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
               <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide1.png" alt="slide1" />
               <h5 className="my-3 text-slanted align-center">Checking who is online and play with her/him.</h5>
             </div>
@@ -73,7 +73,7 @@ class OnboardingSlides extends Component {
         </Slide>
         <Slide slideStatus={this.setSlideState(2)} slideId={2}>
           <Row>
-            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+            <div className="col-md-6 col-lg-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
               <img className="align-center" style={{ width: "100%", maxWidth: "50%", border: 0 }} src="slide2.png" alt="slide2" />
               <h5 className="my-3 text-slanted align-center">Enjoy chating with others to make friends.</h5>
             </div>
@@ -81,7 +81,7 @@ class OnboardingSlides extends Component {
         </Slide>
         <Slide slideStatus={this.setSlideState(3)} slideId={3}>
           <Row>
-            <div className="col-md-6 col-lg-8 my-3 card align-center" style={{border: 0, borderRadius: "4px"}}>
+            <div className="col-md-6 col-lg-8 my-3 card align-center slide-content" style={{border: 0, borderRadius: "4px"}}>
               <img className="align-center" style={{ width: "100%", marginTop: "3%", maxWidth: "60%", border: 0 }} src="slide3.png" alt="slide3" />
               <h5 className="my-3 text-slanted align-center">Moving your paddle to hit the ball.</h5>
             </div>
