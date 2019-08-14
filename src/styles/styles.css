@@ -57,6 +57,11 @@ body {
   overflow-x: hidden;
 }
 
+.slide-content {
+  position: absolute;
+  height: 85%;
+}
+
 .slides-controls {
   position: absolute;
   bottom: 0px;
