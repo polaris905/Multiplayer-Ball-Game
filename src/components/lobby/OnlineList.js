@@ -3,6 +3,7 @@ import { Button, Table, Tooltip } from "reactstrap";
 import { connect } from "react-redux";
 import Player from "./Player";
 import { TOOLTIP } from "../../constants";
+import { setTooltip } from "../../redux/actions";
 
 const mapStateToProps = state => {
   const onlineUsers = state.lobby.onlineUsers;
@@ -12,6 +13,12 @@ const mapStateToProps = state => {
 }
 
 class OnlineList extends Component {
+  handleCloseTooltip = () => {
+    if (this.props.tooltipOrder === TOOLTIP.REQUEST_GAME) {
+      this.props.setTooltip(TOOLTIP.MENU);
+    }
+  }
+
   render() {
     let list = [];
     for (let player in this.props.onlineUsers) {
@@ -31,7 +38,7 @@ class OnlineList extends Component {
         <div className="online-list-content">
           <Table>
             <thead>
-              <Tooltip placement="left" isOpen={this.props.tooltipOrder === TOOLTIP.REQUEST_GAME} target="action">
+              <Tooltip placement="left" isOpen={this.props.tooltipOrder === TOOLTIP.REQUEST_GAME} onClick={this.handleCloseTooltip} target="action">
                 Select an available player to send a game request.
               </Tooltip>
               <tr>
@@ -52,4 +59,4 @@ class OnlineList extends Component {
   }
 };
 
-export default connect(mapStateToProps, {})(OnlineList);
+export default connect(mapStateToProps, { setTooltip })(OnlineList);

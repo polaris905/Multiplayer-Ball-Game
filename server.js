@@ -171,6 +171,34 @@ io.on("connection", socket => {
     }
   });
 
+  socket.on("register", registerInfo => {
+    database.collection("users").where("username", "==", registerInfo.username)
+      .get()
+      .then((querySnapshot) => {
+        if (querySnapshot.size > 0) {
+          socket.emit("register", { registerStatus: "REPEATED" });
+        } else {
+          database.collection("users")
+            .add({
+              username: registerInfo.username,
+              password: registerInfo.password,
+              onboardingComplete: false,
+              win: 0,
+              lose: 0
+            })
+            .then(data => {
+              socket.emit("register", { registerStatus: "SUCCESSFUL" });
+            })
+            .catch(error => {
+              socket.emit("register", { registerStatus: "FAILED" });
+            });
+        }
+      })
+      .catch(error => {
+        socket.emit("register", { registerStatus: "FAILED" });
+      });
+  });
+
   socket.on("set_onboarding", complete => {
     if (username) {
       if (!complete) {

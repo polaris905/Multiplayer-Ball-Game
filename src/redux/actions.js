@@ -1,5 +1,5 @@
-import { connectServer, requestGameToServer } from "../client";
-import { LOGIN_REQUESTED, SET_ONBOARDING, SET_LOGIN_RESPONSE, SET_TOOLTIP, UPDATE_MESSAGES, UPDATE_LOBBY_DATA, SET_PAGE, SET_GAME_REQUESTING, SET_GAME_REQUESTED, SET_START_GAME, SET_MOVEMENT, SET_GAME_OVER, SET_LOGOUT } from "./actionTypes";
+import { connect, register, requestGameToServer } from "../client";
+import { LOGIN_REQUESTED, SET_REGISTER_OPEN, SET_REGISTER_CLOSE, SET_REGISTER_REQUESTED, SET_REGISTER_RESPONSE, SET_ONBOARDING, SET_LOGIN_RESPONSE, SET_TOOLTIP, UPDATE_MESSAGES, UPDATE_LOBBY_DATA, SET_PAGE, SET_GAME_REQUESTING, SET_GAME_REQUESTED, SET_START_GAME, SET_MOVEMENT, SET_GAME_OVER, SET_LOGOUT } from "./actionTypes";
 import { MODAL_TYPE } from "../constants";
 
 export const setLoginRequested = () => ({
@@ -8,7 +8,7 @@ export const setLoginRequested = () => ({
 
 export const loginToServer = (loginInfo) => {
   return dispatch => {
-    connectServer(loginInfo,
+    connect(loginInfo,
       loginResponse => {
         dispatch(setLoginResponse(loginResponse));
       },
@@ -40,13 +40,40 @@ export const loginToServer = (loginInfo) => {
   }
 }
 
-const setLoginResponse = (data) => ({
+export const registerToServer = (registerInfo) => {
+  return dispatch => {
+    register(registerInfo,
+      registerResponse => {
+        dispatch(setRegisterResponse(registerResponse));
+      }
+    );
+  }
+}
+
+const setLoginResponse = (response) => ({
   type: SET_LOGIN_RESPONSE,
   payload: {
-    page: data.page,
-    userInfo: data.userInfo,
-    loginStatus: data.loginStatus,
+    page: response.page,
+    userInfo: response.userInfo,
+    loginStatus: response.loginStatus,
   }
+});
+
+const setRegisterResponse = (response) => ({
+  type: SET_REGISTER_RESPONSE,
+  payload: response.registerStatus
+})
+
+export const setRegisterOpen = () => ({
+  type: SET_REGISTER_OPEN
+});
+
+export const setRegisterClose = () => ({
+  type: SET_REGISTER_CLOSE
+});
+
+export const setRegisterRequested = () => ({
+  type: SET_REGISTER_REQUESTED
 });
 
 export const setTooltip = (tooltipOrder) => ({

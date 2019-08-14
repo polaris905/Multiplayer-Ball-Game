@@ -43,6 +43,10 @@ body {
   margin: auto;
 }
 
+.register-tip {
+  color: #dc3545;
+}
+
 .fullscreen {
   position: absolute;
   top:0;
@@ -198,14 +202,19 @@ body {
   align-items: center;
 }
 
-
-#login-button {
+#login-button, #register-button {
+  margin-right: 10px;
   background-color: white;
   color: black;
 }
 
 #login-button:hover {
   background-color: #007bff;
+  color: white;
+}
+
+#register-button:hover {
+  background-color: #dc3545;
   color: white;
 }
 

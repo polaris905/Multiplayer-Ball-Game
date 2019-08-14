@@ -9,7 +9,7 @@ let socket = socketIOClient.connect(host, { secure: true });
 // Checks which host we're connected to (for troubleshooting);
 console.log("connected to " + host);
 
-export const connectServer = (
+export const connect = (
   loginInfo,
   callbackLoginResponse,
   callbackMessages,
@@ -24,7 +24,7 @@ export const connectServer = (
   socket.emit("login", loginInfo);
   socket.on("login", loginResponse => {
     callbackLoginResponse(loginResponse);
-  })
+  });
   socket.on("chat", messages => {
     callbackMessages(messages);
   });
@@ -49,6 +49,13 @@ export const connectServer = (
   socket.on("game_over", result => {
     callbackGameOver(result);
   });
+}
+
+export const register = (registerInfo, callbackRegisterResponse) => {
+  socket.emit("register", registerInfo);
+  socket.on("register", registerResponse => {
+    callbackRegisterResponse(registerResponse);
+  })
 }
 
 export const setOnboardingToServer = (status) => {

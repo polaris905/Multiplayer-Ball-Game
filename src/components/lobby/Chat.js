@@ -36,14 +36,18 @@ class Chat extends Component {
   }
 
   handleSendMessage = () => {
+    this.handleCloseTooltip();
+    sendMessageToServer(this.state.input);
+    this.setState({ input: "" });
+  }
+
+  handleCloseTooltip = () => {
     if (this.state.tooltipOpen) {
       this.setState({
         tooltipOpen: false
       });
       this.props.setTooltip(TOOLTIP.REQUEST_GAME);
     }
-    sendMessageToServer(this.state.input);
-    this.setState({ input: "" });
   }
 
   handleKeyPress = event => {
@@ -84,7 +88,7 @@ class Chat extends Component {
             <Button id="message-send" color="success" onClick={this.handleSendMessage}>SEND</Button>
           </InputGroupAddon>
         </InputGroup>
-        <Tooltip placement="top" isOpen={this.state.tooltipOpen} target="message-input">
+        <Tooltip placement="top" isOpen={this.state.tooltipOpen} onClick={this.handleCloseTooltip} target="message-input">
           Send a message.
         </Tooltip>
       </div>

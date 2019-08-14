@@ -18,10 +18,14 @@ class ActionMenu extends Component {
     };
   }
 
-  toggle = () => {
+  handleCloseTooltip = () => {
     if (this.props.tooltipOrder === TOOLTIP.MENU) {
       this.props.setTooltip(TOOLTIP.NONE);
     }
+  }
+
+  toggle = () => {
+    this.handleCloseTooltip();
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
@@ -48,7 +52,7 @@ class ActionMenu extends Component {
           <DropdownItem divider />
           <DropdownItem onClick={this.logout}>Logout</DropdownItem>
         </DropdownMenu>
-        <Tooltip placement="auto" isOpen={this.props.tooltipOrder === TOOLTIP.MENU} target="action-menu">
+        <Tooltip placement="auto" isOpen={this.props.tooltipOrder === TOOLTIP.MENU} onClick={this.handleCloseTooltip} target="action-menu">
           Open menu to see more options.
         </Tooltip>
       </ButtonDropdown>
