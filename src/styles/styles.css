@@ -152,7 +152,7 @@ body {
 }
 
 .chat-content {
-  height: 80%;
+  height: 81%;
   width: 100%;
   overflow-y: scroll;
   margin-bottom: 10px;
@@ -226,14 +226,13 @@ body {
 
 #lobby-frame {
   margin: auto;
-  margin-top: 4%;
+  margin-top: 3%;
   position: relative;
-  height: 73%;
+  height: 560px;
   width: 100%;
 }
 
 #lobby-row {
-  position: absolute;
   height: 100%;
   width: 100%;
 }
