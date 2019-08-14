@@ -30,12 +30,6 @@ class Register extends Component {
     this.props.registerToServer({ username: this.state.username, password: btoa(this.state.password1) });
   };
 
-  keyPressHandler = e => {
-    if (e.key === "Enter") {
-      this.handleRegister();
-    }
-  }
-
   handleCancel = () => {
     this.props.setRegisterClose();
     this.setState({
@@ -48,7 +42,7 @@ class Register extends Component {
   displayError = () => {
     switch (this.props.status) {
       case REGISTER_STATUS.SUCCESSFUL:
-        return <Alert color="success">Congratulations! Registration success.</Alert>;
+        return <Alert color="success">Congratulations! Registration successfully.</Alert>;
       case REGISTER_STATUS.REPEATED:
         return <Alert color="danger">The username has been used. Please choose a new username.</Alert>;
       case REGISTER_STATUS.FAILED:
@@ -97,7 +91,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Modal centered isOpen={this.props.status !== REGISTER_STATUS.CLOSE} onKeyPress={this.keyPressHandler}>
+      <Modal centered isOpen={this.props.status !== REGISTER_STATUS.CLOSE}>
         <ModalBody>
           {this.props.status === REGISTER_STATUS.REQUESTED ?
             <div className="spinner-wrapper">

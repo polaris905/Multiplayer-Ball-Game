@@ -34,12 +34,6 @@ class Login extends Component {
     this.props.setRegisterOpen();
   }
 
-  keyPressHandler = e => {
-    if (e.key === "Enter") {
-      this.handleLogin();
-    }
-  }
-
   displayError = () => {
     switch (this.props.status) {
       case LOGIN_STATUS.INVALID:
@@ -47,7 +41,7 @@ class Login extends Component {
       case LOGIN_STATUS.FAILED:
         return <Alert color="danger">Error connecting to database!</Alert>
       case LOGIN_STATUS.REPEATED:
-        return <Alert color="danger">The username has already login on another browser! Please close it and then try again.</Alert>
+        return <Alert color="danger">The username has already login in another browser! Please close it and then try again.</Alert>
       default:
         return "";
     }
@@ -63,7 +57,7 @@ class Login extends Component {
     } else {
       return (
         <Container className="login-frame">
-          <Form className="login-form" onKeyPress={this.keyPressHandler}>
+          <Form className="login-form">
             <h2>User Login</h2>
             {this.displayError()}
             <FormGroup row>
