@@ -36,9 +36,11 @@ class Chat extends Component {
   }
 
   handleSendMessage = () => {
-    this.handleCloseTooltip();
-    sendMessageToServer(this.state.input);
-    this.setState({ input: "" });
+    if (this.state.input.length > 0) {
+      this.handleCloseTooltip();
+      sendMessageToServer(this.state.input);
+      this.setState({ input: "" });
+    }
   }
 
   handleCloseTooltip = () => {
@@ -51,7 +53,7 @@ class Chat extends Component {
   }
 
   handleKeyPress = event => {
-    if (event.key === "Enter" && this.state.input.length > 0) {
+    if (event.key === "Enter") {
       this.handleSendMessage();
     }
   };
